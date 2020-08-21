@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^0.1.3
   flare_splash_screen: ^3.0.1
   flare_flutter: ^2.0.6
+  flutter_swiper: ^1.1.6
+  flutter_gradient_colors: ^1.0.0
 
 dev_dependencies:
   flutter_test:
