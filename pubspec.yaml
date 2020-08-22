@@ -32,6 +32,8 @@ dependencies:
   flare_flutter: ^2.0.6
   flutter_swiper: ^1.1.6
   flutter_gradient_colors: ^1.0.0
+  persistent_bottom_nav_bar: ^2.0.5
+  ss_bottom_navbar: ^0.0.10
 
 dev_dependencies:
   flutter_test:

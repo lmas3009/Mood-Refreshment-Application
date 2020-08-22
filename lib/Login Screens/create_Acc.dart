@@ -1,4 +1,4 @@
-import 'package:Your_personal/Main/Home.dart';
+import 'package:Your_personal/Main/Navbar.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
@@ -445,7 +445,7 @@ class _SelectbackState extends State<Selectback> {
               duration: Duration(milliseconds: 500),
                 curve: Curves.bounceInOut,
                 child: InkWell(
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Homepage()));},
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> Navbar()));},
                     child: Container(
                       margin: const EdgeInsets.only(top: 20),
                       width: 200,
