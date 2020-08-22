@@ -12,6 +12,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
 
   String type_day = "";
+  List<Widget> list = List();
   
 
   @override
@@ -40,9 +41,51 @@ class _HomepageState extends State<Homepage> {
   }
 
   List<Widget> data() {
-    List<Widget> list = List();
     for (int i = 0; i < 5; i++) {
-      list.add(Container(
+      list.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: (){
+                list.remove(i);
+              },
+              child: Container(
+              margin: const EdgeInsets.only(left: 10),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.delete),
+                ),
+            ),
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.edit_outlined),
+                ),
+                ),
+            Container(
                   height: 80,
                   width: 250,
                   margin: const EdgeInsets.only(top: 20,bottom: 20),
@@ -78,6 +121,8 @@ class _HomepageState extends State<Homepage> {
                   ),
                   )
                   )
+          ],
+        )
                 );
     }
     return list;

@@ -1,5 +1,6 @@
 import 'package:Your_personal/Home.dart';
 import 'package:Your_personal/Main/Home.dart';
+import 'package:Your_personal/Main/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 
@@ -55,7 +56,7 @@ class _NavbarState extends State<Navbar> {
   final _pageopt=[
     Homepage(),
     Homepage(),
-    Homepage(),
+    Profile(),
     Homepage(),
   ];
 
