@@ -18,10 +18,10 @@ class _NavbarState extends State<Navbar> {
 
   var _colors = [Colors.red, Colors.blue, Colors.green, Colors.orange, Colors.teal];
   var items = [
-    SSBottomNavItem(text: 'Add', iconData: Icons.add, isIconOnly: true),
-    SSBottomNavItem(text: 'Home', iconData: Icons.home),
-    SSBottomNavItem(text: 'Profile', iconData: Icons.person_outline),
-    SSBottomNavItem(text: 'Graphs', iconData: Icons.graphic_eq),
+    SSBottomNavItem(text: 'Add', iconData: Icons.add, iconSize: 20, isIconOnly: true),
+    SSBottomNavItem(text: 'Home', iconData: Icons.home, iconSize: 20),
+    SSBottomNavItem(text: 'Profile', iconData: Icons.person_outline, iconSize: 20),
+    SSBottomNavItem(text: 'Graphs', iconData: Icons.graphic_eq, iconSize: 20),
   ];
 
   @override

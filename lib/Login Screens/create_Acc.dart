@@ -1,3 +1,5 @@
+import 'package:Your_personal/Home.dart';
+import 'package:Your_personal/Main/Home.dart';
 import 'package:Your_personal/Main/Navbar.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +14,7 @@ class Createacc extends StatefulWidget {
 }
 TextEditingController _controller = new TextEditingController();
 TextEditingController _controller1 = new TextEditingController();
-LinearGradient backgroundcolor = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: GradientColors.blue,
-  );
+
 
 class _CreateaccState extends State<Createacc> {
   bool animated = false;
@@ -66,10 +64,8 @@ class _CreateaccState extends State<Createacc> {
         backgroundColor: Colors.transparent
       ),
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.blue[200],
       body: Container(
-        decoration: BoxDecoration(
-          gradient: backgroundcolor,
-        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -130,6 +126,7 @@ class _CreateaccState extends State<Createacc> {
               ),
               ),
 
+              Container(margin: const EdgeInsets.only(top: 150),),
               Opacity(opacity: opacity,
             child:AnimatedContainer(
               duration: Duration(milliseconds: 500),
@@ -137,7 +134,6 @@ class _CreateaccState extends State<Createacc> {
            child: InkWell(
               onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Password()));},
              child: Container(
-              margin: const EdgeInsets.only(top: 150),
               width: _width1,
               height: _heigth1,
               decoration: BoxDecoration(
@@ -215,10 +211,8 @@ class _PasswordState extends State<Password> {
         backgroundColor: Colors.transparent
       ),
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.blue[200],
       body: Container(
-        decoration: BoxDecoration(
-          gradient: backgroundcolor,
-        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -281,14 +275,14 @@ class _PasswordState extends State<Password> {
               ),
               ),
 
+              Container(margin: const EdgeInsets.only(top: 150),),
               Opacity(opacity: opacity,
             child:AnimatedContainer(
               duration: Duration(milliseconds: 500),
                 curve: Curves.bounceInOut,
            child: InkWell(
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Selectback()));},
+              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()));},
              child: Container(
-              margin: const EdgeInsets.only(top: 150),
               width: _width1,
               height: _heigth1,
               decoration: BoxDecoration(
@@ -310,7 +304,7 @@ class _PasswordState extends State<Password> {
     );
   }
 }
-
+/*
 
 class Selectback extends StatefulWidget {
   Selectback({Key key}) : super(key: key);
@@ -468,4 +462,4 @@ class _SelectbackState extends State<Selectback> {
       ),
     );
   }
-}
+}*/
