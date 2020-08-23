@@ -262,6 +262,7 @@ class _ProfileState extends State<Profile> {
             InkWell(
               onTap: (){
                 logout(context);
+                Navigator.pop(context);
               },
               child:Center(
                 child:  Container(

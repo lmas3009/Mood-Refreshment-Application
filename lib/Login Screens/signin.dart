@@ -1,4 +1,5 @@
 import 'package:Your_personal/Main/Navbar.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -23,6 +24,10 @@ class _SigninState extends State<Signin> {
     setState(() {
       _controller.text='';
       _controller1.text='';
+    });
+    Firebase.initializeApp().whenComplete(() { 
+      print("completed");
+      setState(() {});
     });
   }
 

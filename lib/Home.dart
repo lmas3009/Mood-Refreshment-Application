@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Your_personal/Login%20Screens/create_Acc.dart';
 import 'package:Your_personal/Login%20Screens/signin.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -47,12 +49,15 @@ class _HomeState extends State<Home> {
       });
     });
     });
-    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: (){
+        exit(0);
+      },
+      child: Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -128,6 +133,7 @@ class _HomeState extends State<Home> {
         ), 
         )
       ),
+    ),
     );
   }
 }
