@@ -1,6 +1,9 @@
 import 'package:Your_personal/Home.dart';
 import 'package:Your_personal/Main/Home.dart';
 import 'package:Your_personal/Main/Navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
@@ -14,6 +17,8 @@ class Createacc extends StatefulWidget {
 }
 TextEditingController _controller = new TextEditingController();
 TextEditingController _controller1 = new TextEditingController();
+TextEditingController _controller2 = new TextEditingController();
+
 
 
 class _CreateaccState extends State<Createacc> {
@@ -31,6 +36,10 @@ class _CreateaccState extends State<Createacc> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Firebase.initializeApp().whenComplete(() { 
+      print("completed");
+      setState(() {});
+    });
     Future.delayed(Duration(milliseconds :400),(){
         setState(() {
         _width = 150;
@@ -85,7 +94,7 @@ class _CreateaccState extends State<Createacc> {
             child: AnimatedDefaultTextStyle(
               duration: Duration(milliseconds: 200),
               style: animated? TextStyle(color: Colors.white,fontSize: 25,fontWeight:FontWeight.bold) : TextStyle(color: Colors.white,fontSize: 0,fontWeight:FontWeight.bold),
-              child: Text("What is your name",textAlign: TextAlign.center,),
+              child: Text("What will be your Email",textAlign: TextAlign.center,),
             ),
             ),
             ),
@@ -112,6 +121,154 @@ class _CreateaccState extends State<Createacc> {
                                 margin: const EdgeInsets.only(top: 5,left: 10,right: 10),
                                 child: TextFormField(
                                   controller: _controller,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  maxLines: 1,
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: InputDecoration(
+                                    hintText: "Email...",
+                                    disabledBorder: InputBorder.none,
+                                    border: InputBorder.none,
+                                    hoverColor: Colors.red
+                                  ),
+                              ),
+                              )
+                            ),
+              ),
+              ),
+
+              Container(margin: const EdgeInsets.only(top: 150),),
+              Opacity(opacity: opacity,
+            child:AnimatedContainer(
+              duration: Duration(milliseconds: 500),
+                curve: Curves.bounceInOut,
+           child: InkWell(
+              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Username()));},
+             child: Container(
+              width: _width1,
+              height: _heigth1,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(width: 1,color: Colors.white,),
+                borderRadius: BorderRadius.circular(20)
+              ),
+              child: Center(
+                child: Text("Next",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
+              )
+            ),
+           )
+            ),
+            ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Username extends StatefulWidget {
+  Username({Key key}) : super(key: key);
+
+  @override
+  _UsernameState createState() => _UsernameState();
+}
+
+class _UsernameState extends State<Username> {
+   bool animated = false;
+  double opacity= 0;
+
+  double _heigth = 20;
+  double _heigth1 = 0;
+  double _heigth2 = 0;
+  double _width=20;
+  double _width1=0;
+  double _width2=0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration(milliseconds :400),(){
+        setState(() {
+        _width = 150;
+        _heigth = 150;
+          opacity= 1;
+        _controller2.text='';
+        animated = true;
+      });
+      Future.delayed(Duration(milliseconds: 500),(){
+        setState(() {
+        _width2 = 300;
+        _heigth2 = 60;
+      });
+      Future.delayed(Duration(milliseconds: 200),(){
+        setState(() {
+        _width1 = 250;
+        _heigth1 = 50;
+        _controller2.text='';
+      });
+    });
+    });
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent
+      ),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.blue[200],
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  Opacity(opacity: opacity,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                width: _width,
+                height: _heigth,
+                child: FlareActor('assets/icon.flr',alignment: Alignment.center,color: Colors.white,animation: 'Untitled',),
+              ),
+              ),
+               Opacity(opacity: opacity,
+            child: Container(
+            child: AnimatedDefaultTextStyle(
+              duration: Duration(milliseconds: 200),
+              style: animated? TextStyle(color: Colors.white,fontSize: 25,fontWeight:FontWeight.bold) : TextStyle(color: Colors.white,fontSize: 0,fontWeight:FontWeight.bold),
+              child: Text("What is your Name?",textAlign: TextAlign.center,),
+            ),
+            ),
+            ),
+                ],
+              ),
+              Opacity(opacity: opacity,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.bounceInOut,
+                child: Container(
+                              height: _heigth2,
+                              width: _width2,
+                              decoration: BoxDecoration(
+                                color: Colors.blue[50],
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    color: Colors.white30
+                                  )
+                                ]
+                              ),
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 5,left: 10,right: 10),
+                                child: TextFormField(
+                                  controller: _controller2,
                                   textAlignVertical: TextAlignVertical.center,
                                   maxLines: 1,
                                   decoration: InputDecoration(
@@ -183,7 +340,6 @@ class _PasswordState extends State<Password> {
         _width = 150;
         _heigth = 150;
           opacity= 1;
-        _controller.text='';
         animated = true;
       });
       Future.delayed(Duration(milliseconds: 500),(){
@@ -281,7 +437,12 @@ class _PasswordState extends State<Password> {
               duration: Duration(milliseconds: 500),
                 curve: Curves.bounceInOut,
            child: InkWell(
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()));},
+              onTap: (){
+                createUser().whenComplete(() => 
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar())),
+                );
+
+              },
              child: Container(
               width: _width1,
               height: _heigth1,
@@ -291,7 +452,7 @@ class _PasswordState extends State<Password> {
                 borderRadius: BorderRadius.circular(20)
               ),
               child: Center(
-                child: Text("Next",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
+                child: Text("Create Account",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
               )
             ),
            )
@@ -304,6 +465,28 @@ class _PasswordState extends State<Password> {
     );
   }
 }
+
+final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
+var email = _controller.text.toString().replaceAll('@', "_");
+ var email1 = email.replaceAll('.', "-");
+
+var _firebasedata = FirebaseDatabase().reference().child("Userdetails").child(email1);
+  Future createUser() async{
+    try{
+      final auth.User user = (await _auth.createUserWithEmailAndPassword(email: _controller.text, password: _controller1.text)).user;
+      _firebasedata.set(
+        {
+          "Email": _controller.text,
+          "Username": _controller2.text
+        }
+      );
+    return user!=null;
+    }
+    catch(e){
+      return e.message;
+    }
+  }
+
 /*
 
 class Selectback extends StatefulWidget {

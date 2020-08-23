@@ -1,6 +1,9 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class Homepage extends StatefulWidget {
   Homepage({Key key}) : super(key: key);
@@ -15,11 +18,23 @@ class _HomepageState extends State<Homepage> {
 
   String type_day = "";
   List<Widget> list = List();
-  
-
+  var fb = FirebaseDatabase.instance.reference();
+  String name='';
+  final FirebaseAuth auth1 = FirebaseAuth.instance;
+ 
   @override
   void initState() { 
     super.initState();
+     final auth.User user =auth1.currentUser;
+      final uid = user.email;
+      var uid1 = uid.replaceAll("@", "_");
+      var uid2 = uid1.replaceAll(".", "-");
+    fb.child("Userdetails").child(uid2).once().then((DataSnapshot data){
+      var res =data.value;
+        setState(() {
+          name=res['Username'];
+        });
+    });
     String type = new DateTime.now().toString();
     type = type.substring(11,13);
     if (int.parse(type)>=1 && int.parse(type)<12){
@@ -167,7 +182,7 @@ class _HomepageState extends State<Homepage> {
                     Container(margin: const EdgeInsets.only(top: 30)),
                     Text("Good "+type_day+",",style: TextStyle(fontSize: 20,color: Colors.grey),),
                     Container(margin: const EdgeInsets.only(top: 10)),
-                    Text("Name",style: TextStyle(fontSize: 20,color: Colors.black),),        
+                    Text(name,style: TextStyle(fontSize: 20,color: Colors.black),),        
                   ],
                 ),),
                 /*Container(

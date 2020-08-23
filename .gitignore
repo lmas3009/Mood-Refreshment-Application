@@ -33,6 +33,7 @@
 
 # Web related
 lib/generated_plugin_registrant.dart
+./lmasflutter/projects/Your_personal/android/app/google-services.json
 
 # Symbolication related
 app.*.symbols

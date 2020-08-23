@@ -47,6 +47,7 @@ class _HomeState extends State<Home> {
       });
     });
     });
+    Navigator.pop(context);
   }
 
   @override
@@ -55,6 +56,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.blue[200],
@@ -121,7 +123,6 @@ class _HomeState extends State<Home> {
             ),
             Container(
               margin: const EdgeInsets.only(top: 50),
-              
             ),
           ],
         ), 

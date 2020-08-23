@@ -1,6 +1,7 @@
+import 'package:Your_personal/Main/Navbar.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 TextEditingController _controller = new TextEditingController();
 TextEditingController _controller1 = new TextEditingController();
@@ -73,8 +74,9 @@ class _SigninState extends State<Signin> {
                                   controller: _controller,
                                   textAlignVertical: TextAlignVertical.center,
                                   maxLines: 1,
+                                  keyboardType: TextInputType.emailAddress,
                                   decoration: InputDecoration(
-                                    hintText: "Username...",
+                                    hintText: "Email...",
                                     disabledBorder: InputBorder.none,
                                     border: InputBorder.none,
                                     hoverColor: Colors.red
@@ -113,7 +115,13 @@ class _SigninState extends State<Signin> {
                             ),
                       ],
                     ),
-                    Container(
+                    InkWell(
+                      onTap: (){
+                        signInUser().whenComplete(() => 
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()))
+                        );
+                      },
+                      child: Container(
                       margin: const EdgeInsets.only(top: 100),
                       height: 50,
                       width: 200,
@@ -125,7 +133,8 @@ class _SigninState extends State<Signin> {
                       child: Center(
                         child: Text("Sign In",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
                       )
-                    ),
+                    )
+                    )
                   ],
                 ),
               ),
@@ -134,3 +143,15 @@ class _SigninState extends State<Signin> {
     );
   }
 }
+
+  final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
+
+  Future signInUser() async{
+    try{
+      final auth.User user = (await _auth.signInWithEmailAndPassword(email: _controller.text, password: _controller1.text)).user;
+    return user!=null;
+    }
+    catch(e){
+      return e.message;
+    }
+  }

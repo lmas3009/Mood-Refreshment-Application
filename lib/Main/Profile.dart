@@ -1,6 +1,11 @@
+import 'package:Your_personal/Home.dart';
+import 'package:Your_personal/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -44,6 +49,28 @@ final List<LinearGradient> title = <LinearGradient>[
 
 
 class _ProfileState extends State<Profile> {
+
+  var fb = FirebaseDatabase.instance.reference();
+  String name='';
+  final FirebaseAuth auth1 = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+     final auth.User user =auth1.currentUser;
+      final uid = user.email;
+      var uid1 = uid.replaceAll("@", "_");
+      var uid2 = uid1.replaceAll(".", "-");
+    fb.child("Userdetails").child(uid2).once().then((DataSnapshot data){
+      var res =data.value;
+        setState(() {
+          name=res['Username'];
+        });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -69,7 +96,7 @@ class _ProfileState extends State<Profile> {
                    ]
                  ),
                  child: Center(
-                   child: Text("Name",style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),),
+                   child: Text(name,style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),),
                  ),
                ),
                InkWell(
@@ -233,6 +260,9 @@ class _ProfileState extends State<Profile> {
               )
             ),
             InkWell(
+              onTap: (){
+                logout(context);
+              },
               child:Center(
                 child:  Container(
                   margin: const EdgeInsets.all(20),
@@ -254,9 +284,17 @@ class _ProfileState extends State<Profile> {
                 ),
               )
             ),
+            CircularProgressIndicator(backgroundColor: Colors.red,)
          ],
        ),
     ),
     );
   }
+}
+
+void logout(BuildContext context) async{
+  
+  await FirebaseAuth.instance.signOut();
+  print("User Sign Out");
+  Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage()));
 }

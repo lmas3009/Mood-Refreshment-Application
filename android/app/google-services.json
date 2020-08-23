@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "172827922723",
+    "firebase_url": "https://personal-care-c4ce2.firebaseio.com",
+    "project_id": "personal-care-c4ce2",
+    "storage_bucket": "personal-care-c4ce2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172827922723:android:2036920a6ac5832c033c96",
+        "android_client_info": {
+          "package_name": "com.lmas.personal_assistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172827922723-eu64071sjgif8g0g1q5qoq1cdm5onk2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lmas.personal_assistant",
+            "certificate_hash": "a9de5f8d558d75187b2ea74563b7e6855977e9a9"
+          }
+        },
+        {
+          "client_id": "172827922723-k5dhl2gosin6h57fabpmp47up5aenm2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9NYx_QrCDjMmpj2Eb0wlu9YPfPgoRmwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172827922723-k5dhl2gosin6h57fabpmp47up5aenm2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
