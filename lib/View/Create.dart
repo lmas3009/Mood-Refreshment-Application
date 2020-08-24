@@ -1,3 +1,4 @@
+import 'package:Your_personal/Controller/GridItem.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +9,10 @@ class Create extends StatefulWidget {
   _CreateState createState() => _CreateState();
 }
 
+  List<Item> itemList=[];
+  List<Item> selectedList=[];
 class _CreateState extends State<Create> {
 
-  List<Item> itemList;
-  List<Item> selectedList;
   String type_day='';
 
   @override
@@ -44,8 +45,23 @@ class _CreateState extends State<Create> {
   loadList() {
     itemList = List();
     selectedList = List();
-    itemList.add(Item(Icon(Icons.emoji_emotions), 1));
-    itemList.add(Item(Icon(Icons.emoji_events), 2));
+    itemList.add(Item(Icon(Icons.sentiment_dissatisfied_outlined), 1));
+    itemList.add(Item(Icon(Icons.sentiment_neutral), 2));
+    itemList.add(Item(Icon(Icons.sentiment_satisfied), 3));
+    itemList.add(Item(Icon(Icons.sentiment_very_dissatisfied), 4));
+    itemList.add(Item(Icon(Icons.sentiment_very_satisfied), 5));
+    itemList.add(Item(Icon(Icons.self_improvement), 6));
+    itemList.add(Item(Icon(Icons.outdoor_grill), 7));
+    itemList.add(Item(Icon(Icons.mood_bad), 8));
+    itemList.add(Item(Icon(Icons.fitness_center), 9));
+    itemList.add(Item(Icon(Icons.hot_tub), 10));
+    itemList.add(Item(Icon(Icons.two_wheeler), 11));
+    itemList.add(Item(Icon(Icons.music_note), 12));
+    itemList.add(Item(Icon(Icons.movie_creation), 13));
+    itemList.add(Item(Icon(Icons.directions_bike), 14));
+    itemList.add(Item(Icon(Icons.directions_boat),15));
+    itemList.add(Item(Icon(Icons.directions_walk), 16));
+    itemList.add(Item(Icon(Icons.directions_run), 17));
   }
 
 
@@ -53,7 +69,8 @@ class _CreateState extends State<Create> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[200],
-      body: Container(
+      body: SingleChildScrollView(
+        child: Container(
         child: Center(
           child: Column(
           children: [
@@ -64,27 +81,56 @@ class _CreateState extends State<Create> {
             ),
             Container(
               margin: const EdgeInsets.all(20),
-              child: Text("Hi how are you doing this "+type_day+" !",style: TextStyle(fontSize: 25,color: Colors.grey[200],fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+              child: Text("Hi, How is your "+type_day+" ! going on?",style: TextStyle(fontSize: 25,color: Colors.grey[200],fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
             ),
             Container(
-              height: 200,
-              width: 200,
+              margin: const EdgeInsets.only(left: 20,right: 20),
+              height: 300,
               child:  GridView.builder(
-          itemCount: itemList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              childAspectRatio: 0.56,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2),
-          itemBuilder: (context, index) {
-            return 
-            itemList[index].icon;
-          }),
+                itemCount: itemList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,),
+                itemBuilder: (context, index) {
+                  return 
+                 GridItem(
+                  item: itemList[index].icon,
+                  isSelected: (bool value) {
+                    setState(() {
+                      if (value) {
+                        selectedList.add(itemList[index]);
+                      } else {
+                        selectedList.remove(itemList[index]);
+                      }
+                    });
+                    print("$index : $value");
+                    print(selectedList);
+                  },
+                  key: Key(itemList[index].rank.toString()));
+                  }),
+            ),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailinfo()));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(top: 50),
+              height: 50,
+              width: 200,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 1,color: Colors.white,),
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              child: Center(
+                  child: Text("Continue",textAlign: TextAlign.center,style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
+                )
+              )
             )
           ],
         ),
         )
       ),
+      )
     );
   }
 }
@@ -94,4 +140,20 @@ class Item {
   int rank;
 
   Item(this.icon, this.rank);
+}
+
+class Detailinfo extends StatefulWidget {
+  Detailinfo({Key key}) : super(key: key);
+
+  @override
+  _DetailinfoState createState() => _DetailinfoState();
+}
+
+class _DetailinfoState extends State<Detailinfo> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+       child: Text("Hello"),
+    );
+  }
 }
