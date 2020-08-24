@@ -1,4 +1,9 @@
 import 'package:Your_personal/Home.dart';
+import 'package:Your_personal/Main/Navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
@@ -29,16 +34,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   @override
+   @override 
   void initState() {
     super.initState();
+      Firebase.initializeApp().whenComplete(() { 
+      print("completed");
+      setState(() {});
+    });
     Future.delayed(Duration(seconds: 10), () {
+      
+    final auth.User user =FirebaseAuth.instance.currentUser;
+      final uid = user.email;
+      if(uid==null){
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => Home(),
           ));
+      }
+      else{
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Navbar(),
+          ));
+      }
     });
+    
+    
   }
 
   @override
