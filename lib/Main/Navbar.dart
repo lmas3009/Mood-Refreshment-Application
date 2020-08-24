@@ -1,6 +1,7 @@
 import 'package:Your_personal/Home.dart';
 import 'package:Your_personal/Main/Home.dart';
 import 'package:Your_personal/Main/Profile.dart';
+import 'package:Your_personal/View/Create.dart';
 import 'package:flutter/material.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 
@@ -46,7 +47,7 @@ class _NavbarState extends State<Navbar> {
             leading: Icon(Icons.edit),
             title: Text('Write a Story'),
             onTap: () {
-              Navigator.maybePop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Create()));
             },
           ),
         ],

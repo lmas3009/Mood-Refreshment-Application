@@ -203,27 +203,9 @@ class _ProfileState extends State<Profile> {
             decoration: BoxDecoration(
                 color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                BoxShadow(
-                  blurRadius: 5,
-                  color: Colors.grey
-                )
-               ]
-              ),
-              child: Container(alignment: Alignment.bottomCenter,
-              margin: const EdgeInsets.only(bottom: 20),
-                child: Text("Rate this 5-stars",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
-              ),
-            ),
-           Container(
-             margin: const EdgeInsets.all(20),
-            height: 150,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                    image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTn0QSZ_Z2WQQDi58-dxmWXP08h9MvuzjjB1A&usqp=CAU"),
-                    
+                    image: NetworkImage('https://patientengagementhit.com/images/site/article_headers/_normal/GettyImages-star-ratings.jpg'),
+                    fit: BoxFit.fill
                   ),
                 boxShadow: [
                 BoxShadow(
@@ -234,7 +216,29 @@ class _ProfileState extends State<Profile> {
               ),
               child: Container(alignment: Alignment.bottomCenter,
               margin: const EdgeInsets.only(bottom: 20),
-                child: Text("FAQ's",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
+                child: Text("Rate this 5-stars",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700,color: Colors.white)),
+              ),
+            ),
+           Container(
+             margin: const EdgeInsets.all(20),
+            height: 150,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: NetworkImage("https://thefrylawfirm.com/wp-content/uploads/2017/02/faq-1.jpg"),
+                    fit: BoxFit.cover  
+                  ),
+                boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Colors.grey
+                )
+               ]
+              ),
+              child: Container(alignment: Alignment.bottomCenter,
+              margin: const EdgeInsets.only(bottom: 20),
+                //child: Text("FAQ's",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               ),
             ),
             InkWell(
@@ -285,7 +289,7 @@ class _ProfileState extends State<Profile> {
                 ),
               )
             ),
-            CircularProgressIndicator(backgroundColor: Colors.red,)
+            //CircularProgressIndicator(backgroundColor: Colors.red,)
          ],
        ),
     ),

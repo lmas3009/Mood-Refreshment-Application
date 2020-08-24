@@ -44,8 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.delayed(Duration(seconds: 10), () {
       
     final auth.User user =FirebaseAuth.instance.currentUser;
-      final uid = user.email;
-      if(uid==null){
+      if(user==null){
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

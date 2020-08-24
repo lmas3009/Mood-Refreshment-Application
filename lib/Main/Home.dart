@@ -17,7 +17,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
 
   String type_day = "";
-  List<Widget> list = List();
+  List<Widget> list = [];
   var fb = FirebaseDatabase.instance.reference();
   String name='';
   final FirebaseAuth auth1 = FirebaseAuth.instance;
