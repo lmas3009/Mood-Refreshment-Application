@@ -56,6 +56,8 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
+  
+
   Userdata(){
     var fb = FirebaseDatabase.instance.reference();
     final auth.User user =auth1.currentUser;
@@ -65,6 +67,7 @@ class _HomepageState extends State<Homepage> {
     fb.child(uid2).once().then((DataSnapshot data){
       var res =data.value;
       print(res);
+      
     });
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

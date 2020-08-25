@@ -176,13 +176,26 @@ class _DetailinfoState extends State<Detailinfo> {
     _controller.text='';
     _controller1.text='';
     
+    
   }
+  String count='0';
+  int count1=0;
   Submitmoment(){
-    var _firebasedata = FirebaseDatabase().reference().child(email1).child(_controller.text);
-      _firebasedata.set(
+    var _firebasedata = FirebaseDatabase().reference().child(email1).child(count);
+    
+    var _firebasedata1 = FirebaseDatabase().reference().child(email1);
+    
+      _firebasedata1.update(
+        {
+          "length":count
+        }
+      );
+      _firebasedata.update(
         {
           "Title": _controller.text,
           "Info": _controller1.text,
+          "Icons": selectedList.length.toString()
+
         }
       );
         for(var i=0;i<selectedList.length;i++){
@@ -192,6 +205,9 @@ class _DetailinfoState extends State<Detailinfo> {
            }
          ) ;
         }
+     
+        count=(count1+1).toString();
+        count1+=1;
   }
   
 
