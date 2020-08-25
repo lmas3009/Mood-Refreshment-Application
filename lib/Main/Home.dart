@@ -17,7 +17,6 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
 
   String type_day = "";
-  List<Widget> list = [];
   var fb = FirebaseDatabase.instance.reference();
   String name='';
   final FirebaseAuth auth1 = FirebaseAuth.instance;
@@ -57,7 +56,33 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
+  Userdata(){
+    var fb = FirebaseDatabase.instance.reference();
+    final auth.User user =auth1.currentUser;
+      final uid = user.email;
+      var uid1 = uid.replaceAll("@", "_");
+      var uid2 = uid1.replaceAll(".", "-");
+    fb.child(uid2).once().then((DataSnapshot data){
+      var res =data.value;
+      print(res);
+    });
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+              Text("Name",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+              Row(
+                children: [
+                  Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+                  Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),)
+                ],
+              )
+            ],
+        );
+  }
+
   List<Widget> data() {
+  List<Widget> list = [];
     for (int i = 0; i < 5; i++) {
       list.add(
         Row(
@@ -123,19 +148,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                   child: Container(
                     margin: const EdgeInsets.all(10),
-                    child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                          Text("Name",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
-                          Row(
-                            children: [
-                          Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
-                          Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),)
-                            ],
-                          )
-                          ],
-                  ),
+                    child: Userdata()
                   )
                   )
           ],

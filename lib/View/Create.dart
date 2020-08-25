@@ -1,6 +1,10 @@
 import 'package:Your_personal/Controller/GridItem.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class Create extends StatefulWidget {
   Create({Key key}) : super(key: key);
@@ -11,26 +15,32 @@ class Create extends StatefulWidget {
 
   List<Item> itemList=[];
   List<Item> selectedList=[];
+  String type = new DateTime.now().toString();
+  String type1 = type.substring(11,13);
+  String type2 = type.substring(0,19);
+  String type_day='';
 class _CreateState extends State<Create> {
 
-  String type_day='';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    Firebase.initializeApp().whenComplete(() { 
+      print("completed");
+      setState(() {});
+    });
     loadList();
-    String type = new DateTime.now().toString();
-    type = type.substring(11,13);
-    if (int.parse(type)>=1 && int.parse(type)<12){
+    
+    if (int.parse(type1)>=1 && int.parse(type1)<12){
       setState(() {
         type_day = "Morning";
       });
-    } else if(int.parse(type)>=12 && int.parse(type)<16){
+    } else if(int.parse(type1)>=12 && int.parse(type1)<16){
       setState(() {
         type_day = "AfterNoon";
       });
-    } else if(int.parse(type)>=16 && int.parse(type)<21){
+    } else if(int.parse(type1)>=16 && int.parse(type1)<21){
       setState(() {
         type_day = "Evening";
       });
@@ -142,6 +152,7 @@ class Item {
   Item(this.icon, this.rank);
 }
 
+
 class Detailinfo extends StatefulWidget {
   Detailinfo({Key key}) : super(key: key);
 
@@ -149,11 +160,171 @@ class Detailinfo extends StatefulWidget {
   _DetailinfoState createState() => _DetailinfoState();
 }
 
+TextEditingController _controller = new TextEditingController();
+TextEditingController _controller1 = new TextEditingController();
+ final FirebaseAuth auth1 = FirebaseAuth.instance;
+final auth.User user =auth1.currentUser;
+final uid = user.email;
+var email = uid.toString().replaceAll('@', "_");
+ var email1 = email.replaceAll('.', "-");
 class _DetailinfoState extends State<Detailinfo> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.text='';
+    _controller1.text='';
+    
+  }
+  Submitmoment(){
+    var _firebasedata = FirebaseDatabase().reference().child(email1).child(_controller.text);
+      _firebasedata.set(
+        {
+          "Title": _controller.text,
+          "Info": _controller1.text,
+        }
+      );
+        for(var i=0;i<selectedList.length;i++){
+         _firebasedata.update(
+           {
+             'icon'+i.toString(): selectedList[i].icon.toString()
+           }
+         ) ;
+        }
+  }
+  
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Text("Hello"),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.only(top: 70),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 10
+              )
+            ]
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    child:Container(
+                      margin: const EdgeInsets.all(20),
+                      child: Text("Back",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),
+                    )
+                  ),
+                  InkWell(
+                    child:Container(
+                      margin: const EdgeInsets.all(20),
+                      child: Text("Cancel",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),
+                    )
+                  )
+                ],
+              ),
+               Container(
+                height: 150,
+                width: 150,
+                child: FlareActor("assets/icon.flr",color: Colors.blue,animation: 'Untitled',fit: BoxFit.scaleDown,),
+              ),
+              Text(type2,style: TextStyle(fontSize: 20,color: Colors.black),),
+              Container(
+                margin: const EdgeInsets.only(top: 40),
+                height: 60,
+                width: 250,
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue[200],
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  child: TextFormField(
+                  controller: _controller,
+                  textAlignVertical: TextAlignVertical.center,
+                  maxLines: 1,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      hintText: "Title for a moment...",
+                      disabledBorder: InputBorder.none,
+                      border: InputBorder.none,
+                      hoverColor: Colors.red
+                  ),
+                ),
+                )
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 40),
+                height: 120,
+                width: 250,
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue[200],
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Container(
+                  margin: const EdgeInsets.all(10),
+                  child: TextFormField(
+                  controller: _controller1,
+                  textAlignVertical: TextAlignVertical.center,
+                  maxLines: 3,
+                  keyboardType: TextInputType.multiline,
+                  decoration: InputDecoration(
+                      hintText: "Some Information...",
+                      disabledBorder: InputBorder.none,
+                      border: InputBorder.none,
+                      hoverColor: Colors.red
+                  ),
+                ),
+                )
+              ) ,
+              Container(
+                margin: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                children: listofemoji(),
+              ),
+              ),
+              InkWell(
+                onTap: (){
+                  Submitmoment();
+                },
+              child:Container(
+                height: 60,
+                width: 250,
+                margin: const EdgeInsets.only(bottom: 40),
+                decoration: BoxDecoration(
+                  color: Colors.blue[300],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Text("Save Moment",style: TextStyle(fontSize: 20,color: Colors.white),),
+                ),
+              )
+              )
+            ],
+          ),
+        ),
+      )
     );
   }
+} 
+ List<Widget> listofemoji(){
+List<Widget> lis = [];
+  for(var i=0;i<selectedList.length;i++){
+    lis.add(selectedList[i].icon);
+  }
+  return lis;
 }
+
+
+
+
+
+   
