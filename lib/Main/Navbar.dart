@@ -71,7 +71,6 @@ class _NavbarState extends State<Navbar> {
         bottomSheetWidget: _bottomSheet(),
         showBottomSheetAt: 0,
         onTabSelected: (index) {
-          print(index);
           setState(() {
             _index = index;
           });
