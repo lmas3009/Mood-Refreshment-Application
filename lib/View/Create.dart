@@ -1,4 +1,5 @@
 import 'package:Your_personal/Controller/GridItem.dart';
+import 'package:Your_personal/Main/Navbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -169,6 +170,8 @@ var email = uid.toString().replaceAll('@', "_");
  var email1 = email.replaceAll('.', "-");
 class _DetailinfoState extends State<Detailinfo> {
 
+  String count='0';
+  int count1=0;
   @override
   void initState() {
     // TODO: implement initState
@@ -178,16 +181,17 @@ class _DetailinfoState extends State<Detailinfo> {
     
     
   }
-  String count='0';
-  int count1=0;
+  String date = new DateTime.now().toString().substring(11,19);
+  String date1 = new DateTime.now().toString().substring(0,19).replaceAll(" ", "_");
   Submitmoment(){
-    var _firebasedata = FirebaseDatabase().reference().child(email1).child(count);
+    var _firebasedata = FirebaseDatabase().reference().child(email1).child(date1);
+    print(date1);
     
     var _firebasedata1 = FirebaseDatabase().reference().child(email1);
     
-      _firebasedata1.update(
+      _firebasedata.set(
         {
-          "length":count
+          "Title":_controller.text
         }
       );
       _firebasedata.update(
@@ -208,6 +212,10 @@ class _DetailinfoState extends State<Detailinfo> {
      
         count=(count1+1).toString();
         count1+=1;
+        this.setState(() {
+          count1=count1;
+        });
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()));
   }
   
 

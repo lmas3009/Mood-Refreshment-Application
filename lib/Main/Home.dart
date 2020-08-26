@@ -21,6 +21,7 @@ class _HomepageState extends State<Homepage> {
   String name='';
   final FirebaseAuth auth1 = FirebaseAuth.instance;
   int counts=0;
+  List<Widget> lis=[];
  
   @override
   void initState() { 
@@ -55,10 +56,188 @@ class _HomepageState extends State<Homepage> {
         type_day = "Night";
       });
     }
+    
+       
+    lis=[];
+      var res;
+    fb.child(uid2).once().then((DataSnapshot data){
+       res =data.value;
+        Map<dynamic, dynamic> fridgesDs = res;
+//    print(fridgesDs.runtimeType);
+    fridgesDs.forEach((key, value) {
+      lis.add(
+           Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              child: Container(
+              margin: const EdgeInsets.only(left: 10),
+                  height: 40,
+                  width: 40, 
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.delete),
+                ),
+            ),
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.edit_outlined),
+                ),
+                ),
+            Container(
+                  height: 80,
+                  width: 250,
+                  margin: const EdgeInsets.only(top: 20,bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ],
+                    image: DecorationImage(
+                      image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpFiYdmqX1kMS7dgGLBSz3M0hpT9CpfBsyLA&usqp=CAU'),
+                      alignment: Alignment.centerRight,
+                      
+                    )
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                          Text(value['Title'],style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+                          Row(
+                            children: [
+                              Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+                              Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),)
+                            ],
+                          )
+                        ],
+                    ),
+                  )
+                  )
+          ],
+        )
+         );
+    });
+
+       for(var i=0;i<=int.parse(res['length']);i++){
+         //print(res);
+         /*lis.add(
+           Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              child: Container(
+              margin: const EdgeInsets.only(left: 10),
+                  height: 40,
+                  width: 40, 
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.delete),
+                ),
+            ),
+                InkWell(
+                  onTap: (){},
+                  child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ]
+                  ),
+                  child: Icon(Icons.edit_outlined),
+                ),
+                ),
+            Container(
+                  height: 80,
+                  width: 250,
+                  margin: const EdgeInsets.only(top: 20,bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft: Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Colors.grey
+                      )
+                    ],
+                    image: DecorationImage(
+                      image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpFiYdmqX1kMS7dgGLBSz3M0hpT9CpfBsyLA&usqp=CAU'),
+                      alignment: Alignment.centerRight,
+                      
+                    )
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                          Text(res[i.toString()]['Title'],style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+                          Row(
+                            children: [
+                              Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+                              Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),)
+                            ],
+                          )
+                        ],
+                    ),
+                  )
+                  )
+          ],
+        )
+         );*/
+       }
+  });
   }
 
   
-    List<Widget> lis=List();
+List<Widget> userdata(){
+  print(lis);
+  return lis;
+}
+
+  /*  List<Widget> lis=List();
 
   List<Widget> userdata(){
     var fb = FirebaseDatabase.instance.reference();
@@ -158,7 +337,7 @@ class _HomepageState extends State<Homepage> {
     });
     return lis;
   }
-
+*/
   List<Widget> data() {
   List<Widget> list = [];
     for (int i = 0; i < 5; i++) {
@@ -313,4 +492,3 @@ class _HomepageState extends State<Homepage> {
     );
   }
 }
-
