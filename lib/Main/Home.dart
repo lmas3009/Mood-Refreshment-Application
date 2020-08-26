@@ -23,11 +23,14 @@ class _HomepageState extends State<Homepage> {
   final FirebaseAuth auth1 = FirebaseAuth.instance;
   int counts=0;
   List<Widget> lis=[];
- 
+  List<Widget> lis1=[];
+  String date ='';
+
   @override
   void initState() { 
     super.initState();
      final auth.User user =auth1.currentUser;
+     print(user.email);
       final uid = user.email;
       var uid1 = uid.replaceAll("@", "_");
       var uid2 = uid1.replaceAll(".", "-");
@@ -38,6 +41,7 @@ class _HomepageState extends State<Homepage> {
         });
     });
     String type = new DateTime.now().toString();
+    
     type = type.substring(11,13);
     if (int.parse(type)>=1 && int.parse(type)<12){
       setState(() {
@@ -58,6 +62,99 @@ class _HomepageState extends State<Homepage> {
       });
     }
     
+ IconData getIconForName(String iconName) {
+      switch(iconName) {
+        case 'sentiment_dissatisfied_outlined': {
+        return Icons.sentiment_dissatisfied_outlined;
+        }
+        break;
+
+        case 'sentiment_neutral': {
+          return Icons.sentiment_neutral;
+        }
+        break;
+
+        case 'sentiment_satisfied': {
+          return Icons.sentiment_satisfied;
+        }
+        break;
+
+        case 'sentiment_very_dissatisfied': {
+          return Icons.sentiment_very_dissatisfied;
+        }
+        break;
+
+        case 'sentiment_very_satisfied': {
+          return Icons.sentiment_very_satisfied;
+        }
+        break;
+
+        case 'self_improvement': {
+          return Icons.self_improvement;
+        }
+        break;
+
+        case 'outdoor_grill': {
+          return Icons.outdoor_grill;
+        }
+        break;
+
+        case 'mood_bad': {
+          return Icons.mood_bad;
+        }
+        break;
+
+        case 'fitness_center': {
+          return Icons.fitness_center;
+        }
+        break;
+
+        case 'hot_tub': {
+          return Icons.hot_tub;
+        }
+        break;
+
+        case 'two_wheeler': {
+          return Icons.two_wheeler;
+        }
+        break;
+
+        case 'music_note': {
+          return Icons.music_note;
+        }
+        break;
+
+        case 'movie_creation': {
+          return Icons.movie_creation;
+        }
+        break;
+
+        case 'directions_bike': {
+          return Icons.directions_bike;
+        }
+        break;
+
+        case 'directions_boat': {
+          return Icons.directions_boat;
+        }
+        break;
+
+        case 'directions_walk': {
+          return Icons.directions_walk;
+        }
+        break;
+
+        case 'directions_run': {
+          return Icons.directions_run;
+        }
+        break;
+
+        default: {
+          return Icons.home;
+        }
+      }
+    }
+
        
     lis=[];
       var res;
@@ -66,17 +163,36 @@ class _HomepageState extends State<Homepage> {
         Map<dynamic, dynamic> fridgesDs = res;
 //    print(fridgesDs.runtimeType);
     fridgesDs.forEach((key, value) {
+    lis1=[];
+    DateTime dateTimeCreatedAt = DateTime.parse(key.toString().substring(0,10)); 
+    DateTime dateTimeNow = DateTime.now();
+    final differenceInDays = dateTimeNow.difference(dateTimeCreatedAt).inDays;
+    print(differenceInDays);
+    if(differenceInDays==0){
+      this.setState(() {
+      date='Now';
+    });
+    }
+    else{
+      this.setState(() {
+      date=differenceInDays.toString()+" days ago";
+    });
+    }
+      for(var i=0;i<int.parse(value['Icons']);i++){
+        lis1.add(Icon(getIconForName(value["icon"+i.toString()])));
+      } 
       lis.add(
            Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
+              Container(
+                margin: const EdgeInsets.only(left: 30),
+                child: InkWell(
               onTap: (){
                 fb.child(uid2).child(key).remove();
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()));
               },
               child: Container(
-              margin: const EdgeInsets.only(left: 10),
                   height: 40,
                   width: 40, 
                   decoration: BoxDecoration(
@@ -92,7 +208,8 @@ class _HomepageState extends State<Homepage> {
                   child: Icon(Icons.delete),
                 ),
             ),
-                InkWell(
+              ),
+                /*InkWell(
                   onTap: (){},
                   child: Container(
                   height: 40,
@@ -109,7 +226,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                   child: Icon(Icons.edit_outlined),
                 ),
-                ),
+                ),*/
             Container(
                   height: 80,
                   width: 250,
@@ -123,11 +240,11 @@ class _HomepageState extends State<Homepage> {
                         color: Colors.grey
                       )
                     ],
-                    image: DecorationImage(
+                    /*image: DecorationImage(
                       image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpFiYdmqX1kMS7dgGLBSz3M0hpT9CpfBsyLA&usqp=CAU'),
                       alignment: Alignment.centerRight,
                       
-                    )
+                    )*/
                   ),
                   child: Container(
                     margin: const EdgeInsets.all(10),
@@ -135,13 +252,20 @@ class _HomepageState extends State<Homepage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                          Text(value['Title'],style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
                           Row(
                             children: [
-                              Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
-                              Text("Date Time",style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),)
+                              Text(value['Title'],style: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),),
+                              Container(margin: const EdgeInsets.only(left: 20) ),
+                              Text(key.toString().substring(11,19),style: TextStyle(fontSize: 15,color: Colors.grey,fontWeight: FontWeight.bold),),
+                              Container(margin: const EdgeInsets.only(left: 20) ),
+                              Text(date,style: TextStyle(fontSize: 15,color: Colors.grey,fontWeight: FontWeight.bold),),
+                              
                             ],
-                          )
+                          ),
+                          Row(
+                            children: listofemoji(),
+                          ),
+                          
                         ],
                     ),
                   )
@@ -149,11 +273,13 @@ class _HomepageState extends State<Homepage> {
           ],
         )
          );
+         
     });
-
-       for(var i=0;i<=int.parse(res['length']);i++){
+    
+ 
+       /*for(var i=0;i<=int.parse(res['length']);i++){
          //print(res);
-         /*lis.add(
+         lis.add(
            Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -231,8 +357,8 @@ class _HomepageState extends State<Homepage> {
                   )
           ],
         )
-         );*/
-       }
+         );
+       }*/
   });
   }
 
@@ -241,6 +367,13 @@ List<Widget> userdata(){
   print(lis);
   return lis;
 }
+
+List<Widget> listofemoji(){
+  print(lis1);
+  return lis1;
+}
+
+
 
   /*  List<Widget> lis=List();
 
@@ -342,7 +475,7 @@ List<Widget> userdata(){
     });
     return lis;
   }
-*/
+*//*
   List<Widget> data() {
   List<Widget> list = [];
     for (int i = 0; i < 5; i++) {
@@ -430,7 +563,7 @@ List<Widget> userdata(){
                 );
     }
     return list;
-  }
+  }*/
    /*List<Widget> data1() {
     for(var i=0;i<10;i++){
       data.add(

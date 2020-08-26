@@ -56,10 +56,24 @@ class _CreateState extends State<Create> {
   loadList() {
     itemList = List();
     selectedList = List();
-    itemList.add(Item(Icon(Icons.sentiment_dissatisfied_outlined), 1));
-    itemList.add(Item(Icon(Icons.sentiment_neutral), 2));
-    itemList.add(Item(Icon(Icons.sentiment_satisfied), 3));
-    itemList.add(Item(Icon(Icons.sentiment_very_dissatisfied), 4));
+    itemList.add(Item('sentiment_dissatisfied_outlined', 1));
+    itemList.add(Item('sentiment_neutral', 2));
+    itemList.add(Item('sentiment_satisfied', 3));
+    itemList.add(Item('sentiment_very_dissatisfied', 4));
+    itemList.add(Item('sentiment_very_satisfied', 5));
+    itemList.add(Item('self_improvement', 6));
+    itemList.add(Item('outdoor_grill', 7));
+    itemList.add(Item('mood_bad', 8));
+    itemList.add(Item('fitness_center', 9));
+    itemList.add(Item('hot_tub', 10));
+    itemList.add(Item('two_wheeler', 11));
+    itemList.add(Item('music_note', 12));
+    itemList.add(Item('movie_creation', 13));
+    itemList.add(Item('directions_bike', 14));
+    itemList.add(Item('directions_boat', 15));
+    itemList.add(Item('directions_walk', 16));
+    itemList.add(Item('directions_run', 17));
+   /* itemList.add(Item(Icon(Icons.sentiment_very_dissatisfied), 4));
     itemList.add(Item(Icon(Icons.sentiment_very_satisfied), 5));
     itemList.add(Item(Icon(Icons.self_improvement), 6));
     itemList.add(Item(Icon(Icons.outdoor_grill), 7));
@@ -72,7 +86,7 @@ class _CreateState extends State<Create> {
     itemList.add(Item(Icon(Icons.directions_bike), 14));
     itemList.add(Item(Icon(Icons.directions_boat),15));
     itemList.add(Item(Icon(Icons.directions_walk), 16));
-    itemList.add(Item(Icon(Icons.directions_run), 17));
+    itemList.add(Item(Icon(Icons.directions_run), 17));*/
   }
 
 
@@ -147,7 +161,7 @@ class _CreateState extends State<Create> {
 }
 
 class Item {
-  Icon icon;
+  String icon;
   int rank;
 
   Item(this.icon, this.rank);
@@ -164,10 +178,8 @@ class Detailinfo extends StatefulWidget {
 TextEditingController _controller = new TextEditingController();
 TextEditingController _controller1 = new TextEditingController();
  final FirebaseAuth auth1 = FirebaseAuth.instance;
-final auth.User user =auth1.currentUser;
-final uid = user.email;
-var email = uid.toString().replaceAll('@', "_");
- var email1 = email.replaceAll('.', "-");
+
+
 class _DetailinfoState extends State<Detailinfo> {
 
   String count='0';
@@ -184,6 +196,12 @@ class _DetailinfoState extends State<Detailinfo> {
   String date = new DateTime.now().toString().substring(11,19);
   String date1 = new DateTime.now().toString().substring(0,19).replaceAll(" ", "_");
   Submitmoment(){
+    final auth.User user =auth1.currentUser;
+    final uid = user.email;   
+    var email = uid.toString().replaceAll('@', "_");
+ var email1 = email.replaceAll('.', "-");
+ print(email1);
+ print(uid);
     var _firebasedata = FirebaseDatabase().reference().child(email1).child(date1);
     print(date1);
     
@@ -205,7 +223,7 @@ class _DetailinfoState extends State<Detailinfo> {
         for(var i=0;i<selectedList.length;i++){
          _firebasedata.update(
            {
-             'icon'+i.toString(): selectedList[i].icon.toString()
+             'icon'+i.toString(): selectedList[i].icon
            }
          ) ;
         }
@@ -241,12 +259,18 @@ class _DetailinfoState extends State<Detailinfo> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
                     child:Container(
                       margin: const EdgeInsets.all(20),
                       child: Text("Back",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),
                     )
                   ),
                   InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()));
+                    },
                     child:Container(
                       margin: const EdgeInsets.all(20),
                       child: Text("Cancel",style: TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.bold),),
@@ -339,10 +363,105 @@ class _DetailinfoState extends State<Detailinfo> {
     );
   }
 } 
+
+
+ IconData getIconForName(String iconName) {
+      switch(iconName) {
+        case 'sentiment_dissatisfied_outlined': {
+        return Icons.sentiment_dissatisfied_outlined;
+        }
+        break;
+
+        case 'sentiment_neutral': {
+          return Icons.sentiment_neutral;
+        }
+        break;
+
+        case 'sentiment_satisfied': {
+          return Icons.sentiment_satisfied;
+        }
+        break;
+
+        case 'sentiment_very_dissatisfied': {
+          return Icons.sentiment_very_dissatisfied;
+        }
+        break;
+
+        case 'sentiment_very_satisfied': {
+          return Icons.sentiment_very_satisfied;
+        }
+        break;
+
+        case 'self_improvement': {
+          return Icons.self_improvement;
+        }
+        break;
+
+        case 'outdoor_grill': {
+          return Icons.outdoor_grill;
+        }
+        break;
+
+        case 'mood_bad': {
+          return Icons.mood_bad;
+        }
+        break;
+
+        case 'fitness_center': {
+          return Icons.fitness_center;
+        }
+        break;
+
+        case 'hot_tub': {
+          return Icons.hot_tub;
+        }
+        break;
+
+        case 'two_wheeler': {
+          return Icons.two_wheeler;
+        }
+        break;
+
+        case 'music_note': {
+          return Icons.music_note;
+        }
+        break;
+
+        case 'movie_creation': {
+          return Icons.movie_creation;
+        }
+        break;
+
+        case 'directions_bike': {
+          return Icons.directions_bike;
+        }
+        break;
+
+        case 'directions_boat': {
+          return Icons.directions_boat;
+        }
+        break;
+
+        case 'directions_walk': {
+          return Icons.directions_walk;
+        }
+        break;
+
+        case 'directions_run': {
+          return Icons.directions_run;
+        }
+        break;
+
+        default: {
+          return Icons.home;
+        }
+      }
+    }
+
  List<Widget> listofemoji(){
 List<Widget> lis = [];
   for(var i=0;i<selectedList.length;i++){
-    lis.add(selectedList[i].icon);
+    lis.add(Icon(getIconForName(selectedList[i].icon)));
   }
   return lis;
 }

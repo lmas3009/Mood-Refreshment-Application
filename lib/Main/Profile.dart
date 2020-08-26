@@ -99,7 +99,7 @@ class _ProfileState extends State<Profile> {
                    child: Text(name,style: TextStyle(color: Colors.black,fontSize: 25,fontWeight: FontWeight.bold),),
                  ),
                ),
-               InkWell(
+              /* InkWell(
                  onTap: (){},
                  child: Container(
                    margin: const EdgeInsets.only(right: 40),
@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
                      child: Icon(Icons.settings,size: 30,),
                    ),
                  ),
-               )
+               )*/
              ],
            ),
            /*Container(
@@ -241,7 +241,7 @@ class _ProfileState extends State<Profile> {
                 //child: Text("FAQ's",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
               ),
             ),
-            InkWell(
+            /*InkWell(
               child:Center(
                 child:  Container(
                   margin: const EdgeInsets.all(20),
@@ -262,7 +262,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
               )
-            ),
+            ),*/
             InkWell(
               onTap: (){
                 logout(context);
