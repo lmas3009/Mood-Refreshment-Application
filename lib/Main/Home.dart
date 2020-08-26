@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:Your_personal/Main/Navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,10 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InkWell(
+              onTap: (){
+                fb.child(uid2).child(key).remove();
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Navbar()));
+              },
               child: Container(
               margin: const EdgeInsets.only(left: 10),
                   height: 40,
